@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>Title: {{ object.title }}</h1>
+<p>Description: {{ object.description}}</p>
+<p>People Required: {{ object.num_req }}</p>
+<p>Date: {{ object.date|date }}</p>
+<p>Num Registered: {{ num_registered }}</p>
+<a href="{% url 'orgs:events' %}"> Back </a>
+<a href="{% url 'orgs:delete_event' object.pk %}"> Delete </a>
+
+{% endblock %}

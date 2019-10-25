@@ -1,0 +1,9 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="description">
+  <h1>Welcome to the Volunteer System!</h1>
+  <p>This is a platform which allows NGOs and other organisations to interact with their volunteers. Both Organisations and Volunteers can register here. It allows Organisations to create a events and Volunteers can register for events according to their interests. </p>
+  <a href= "{% url 'signup' %}">Get Started</a>
+</div>
+{% endblock %}

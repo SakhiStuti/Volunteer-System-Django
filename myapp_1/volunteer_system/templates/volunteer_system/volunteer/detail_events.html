@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<h1>Title: {{ object.title }}</h1>
+<p>Description: {{ object.description}}</p>
+<p>People Required: {{ object.num_req }}</p>
+<p>Date: {{ object.date|date }}</p>
+<p>Num Registered: {{ num_registered }}</p>
+{% if people_req and future_date and not_registered%}
+<a href= "{% url 'volunteers:register' object.pk %}">  Register </a>
+{% elif not people_req%}
+<p>The event registration is full.</p>
+{%elif not future_date%}
+<p>This event is already done</p>
+{%elif not not_registered and future_date%}
+<p>You are registered for this event</p>}
+{%elif not not_registered and not future_date%}
+<p>You were a part of this event.</p>}
+{%endif%}
+
+
+
+<a href="{% url 'volunteers:events' %}"> Back </a>
+
+{% endblock %}

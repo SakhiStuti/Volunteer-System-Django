@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8 col-sm-10 col-12">
+      <h2>Register for Event</h2>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        
+        <button type="submit" class="btn btn-success">Register</button>
+        <a href = "{% url 'volunteers:detail_event' pk %}"> Back </a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

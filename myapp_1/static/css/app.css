@@ -1,0 +1,95 @@
+body {
+  padding: 0;
+  margin: 0;
+  background: #f7f9fb;
+}
+
+
+/*--- navigation bar ---*/
+.navbar {
+  background:#222629;
+}
+.nav-link,
+.navbar-brand {
+  color: #f7f9fb;
+  cursor: pointer;
+}
+
+.nav-link {
+  margin-right: 1em !important;
+}
+.navbar-brand:hover{
+   color: #6b6e70;
+}
+.nav-link:hover {
+  color: #6b6e70;
+}
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+
+.description {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -55%);
+  text-align: center;
+}
+.description h1 {
+  color: #86c232;
+}
+
+.description h2 {
+  color: #86c232;
+}
+
+.description p {
+  color: #6b6e70;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.description a{
+  border:1px solid #222629;
+  background:#222629;
+  border-radius: 4px;
+  color:#f7f9fb;
+  padding: 10px 14px 10px 14px;
+}
+.description a:hover {
+  border:1px solid #222629;
+  background:#222629;
+  border-radius: 4px;
+  color:#6b6e70;
+  padding: 10px 14px 10px 14px;
+  text-decoration: none;
+}
+
+a.signup{
+  border:1px solid #222629;
+  background:#222629;
+  border-radius: 4px;
+  color:#f7f9fb;
+  padding: 10px 18px 10px 18px;
+  margin-left: 40px;
+  font-size: 1.3rem;
+}
+
+
+a.signup:hover{
+  border:1px solid #222629;
+  background:#222629;
+  border-radius: 4px;
+  color:#6b6e70;
+  padding: 10px 18px 10px 18px;
+  margin-left: 40px;
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+styled_button.button{
+  background-color:#222629;
+  color:#6b6e70;
+}
+

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main role="main" class="container">
+
+      <h3>Event Search</h3>
+      <form method="GET" action=".">
+          <div class="form-row">
+            <div class="form-group col-5">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="title_contains" placeholder="Title Contains..." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>  
+            <div class="form-group col-5">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="org_exact" placeholder="Organisation Name is..." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>  
+            <div class="form-group col-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="status" name="status">
+                  <label class="form-check-label" for="status">
+                  Registration Open
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="my_registration" name="my_registration">
+                  <label class="form-check-label" for="my_registration">
+                  Registered by Me
+                  </label>
+                </div>
+            </div>                  
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="DateMin">Event Date Minimum</label>
+            <input type="date" class="form-control" id="publishDateMin" name="date_min">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="DateMax">Event Date Maximum</label>
+            <input type="date" class="form-control" id="publishDateMax" name="date_max">
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="city">City</label>
+            <select id="city" class="form-control" name="city">
+              <option selected>Choose...</option>
+              {% for c in city %}
+              <option value="{{ c }}">{{ c }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="state">State</label>
+            <select id="state" class="form-control" name="state">
+              <option selected>Choose...</option>
+              {% for state in states %}
+              <option value="{{ state }}">{{ state }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group col-md-2 col-lg-2">
+            <label for="cause">Cause</label>
+            <select id="cause" class="form-control" name="cause">
+              <option selected>Choose...</option>
+              {% for cause in causes %}
+              <option value="{{ cause }}">{{ cause }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Organisation</th>
+            <th scope="col">Date</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Cause</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+          <tr>
+            <td ><a href = "{% url 'volunteers:detail_event' event.pk %}">{{event.title}} </a></td>
+            <td >{{ event.org }}</td>
+            <td >{{ event.date }}</td>
+            <td >{{ event.city }}</td>
+            <td >{{ event.state }}</td>
+            <td >{{ event.cause }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">Sorry, there are no events for your search.
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>      
+    </main>
+
+{% endblock %}
+        

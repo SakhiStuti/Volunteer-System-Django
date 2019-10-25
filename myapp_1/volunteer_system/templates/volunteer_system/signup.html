@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class= 'description'>
+  <h1>Registration</h1>
+  <p>Welcome to Volunteer System. To get started please select your role.</p>
+  <a class = 'signup' href = "{% url 'volunteers:signup' %}">Volunteer</a>
+  <a class = 'signup' href = "{% url 'orgs:signup' %}">Organisation</a>
+</div>
+{% endblock %}

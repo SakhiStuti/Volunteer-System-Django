@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+  
+  <h2 class="mb-3">My Events</h2>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Cause</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+          <tr>
+            <td class="align-middle">{{ event.title }}</td>
+            <td class="align-middle">{{ event.date }}</td>
+            <td class="align-middle">{{ event.cause }}</td>
+            <td><a href = "{% url 'volunteers:detail_event' event.pk %}"> More </a></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">There are no events yet.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
