@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class= 'description'>
-  <h1>Registration</h1>
+  <h1 style="color:#86c232">Registration</h1>
   <p>Welcome to Volunteer System. To get started please select your role.</p>
-  <a class = 'signup' href = "{% url 'volunteers:signup' %}">Volunteer</a>
-  <a class = 'signup' href = "{% url 'orgs:signup' %}">Organisation</a>
+  <a class="btn btn-primary btn-lg" style="background-color:#222629;border:#222629;margin-right:20px " href = "{% url 'volunteers:signup' %}">Volunteer</a>
+  <a class="btn btn-primary btn-lg" style="background-color:#222629;border:#222629;" href = "{% url 'orgs:signup' %}">Organisation</a>
 </div>
 {% endblock %}

@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
-
+from .widgets import BootstrapDateTimePickerInput
 
 from volunteer_system.models import User, Volunteer, Cause, Interest, Organisation, Event
 
@@ -59,6 +59,13 @@ class VolunteerSignupForm(UserCreationForm):
 
 
 class EventCreationForm(ModelForm):
+
+    description = forms.CharField(widget=forms.Textarea)
+    date = forms.DateField(
+    widget=forms.TextInput(     
+        attrs={'type': 'date'} 
+    )
+)  
 
     def __init__(self, *args, **kwargs):
         super(EventCreationForm, self).__init__(*args, **kwargs)

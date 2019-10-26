@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth import login
 from django.urls import reverse, reverse_lazy
@@ -11,6 +11,14 @@ from ..models import User, Event, Organisation, Registration
 def delete(request):
 	return render(request, 'volunteer_system/test.html')
 
+class EventUpdateView(UpdateView):
+	model = Event
+	form_class = EventCreationForm
+	template_name = 'volunteer_system/org/update_events.html'
+
+	def get_success_url(self, *args, **kwargs):
+		return reverse('orgs:detail_event', kwargs={'pk':self.kwargs['pk']})
+
 class EventDeleteView(DeleteView):
     model = Event
     template_name = 'volunteer_system/org/delete_events_confirm.html'
@@ -21,11 +29,12 @@ class EventDeleteView(DeleteView):
 class EventDetailView(DetailView):
 	model = Event
 	template_name = 'volunteer_system/org/detail_events.html'
+	
 	def get_context_data(self, **kwargs):
-	    event = self.object
-	    context = super().get_context_data(**kwargs)
-	    context['num_registered'] = Registration.objects.filter(event=event).count()
-	    return context
+		event = self.object
+		context = super().get_context_data(**kwargs)
+		context['num_registered'] = Registration.objects.filter(event=event).count()
+		return context
 
 class EventListView(ListView):
 	model = Event
@@ -51,6 +60,9 @@ class EventCreateView(CreateView):
 		return redirect('orgs:events')
 
 
+
+
+
 class OrgSignUpView(CreateView):
     model = User
     form_class = OrgSignupForm
@@ -61,7 +73,10 @@ class OrgSignUpView(CreateView):
         login(self.request, user)
         return redirect('orgs:events')
 
-
+    def get_context_data(self, **kwargs):
+	    context = super().get_context_data(**kwargs)
+	    context['is_org'] = True
+	    return context
 
 
 

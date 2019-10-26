@@ -47,7 +47,7 @@ class Organisation(models.Model):
 class Event(models.Model):
     org = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=500)
     cause = models.ForeignKey(Cause, on_delete= models.CASCADE)
     city = models.CharField(max_length=30)
     state = models.CharField(max_length=30)

@@ -1,26 +1,62 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<div class="card" style="width:40rem;height:40rem;margin:0 auto;">
+    <div class="card-body">
+<h1 style="color:#86c232">{{object.title}}</h1>
+<p style="color: #6b6e70;font-size:1rem;"><i>{{ object.description}}</i></p>
+<table class="table table-bordered table-dark table-striped">
+	<tr>
+	<th style='width:50%'>Organisation</th>
+	<td>{{ object.org }}</td>
+	</tr>
+	<tr>
+	<th>Cause</th>
+	<td>{{ object.cause }}</td>
+	</tr>
+	<tr>
+	<th>Date</th>
+	<td>{{ object.date }}</td>
+	</tr>
+	<tr>
+	<th>City</th>
+	<td>{{ object.city }}</td>
+	</tr>
+	<tr>
+	<th>State</th>
+	<td>{{ object.state}}</td>
+	</tr>
+	<tr>
+	<th>Volunteers Required</th>
+	<td>{{ object.num_req }}</td>
+	</tr>
+	<tr>
+	<th>Volunteers Registered</th>
+	<td>{{ num_registered }}</td>
+	</tr>
+</table>
 
-<h1>Title: {{ object.title }}</h1>
-<p>Description: {{ object.description}}</p>
-<p>People Required: {{ object.num_req }}</p>
-<p>Date: {{ object.date|date }}</p>
-<p>Num Registered: {{ num_registered }}</p>
 {% if people_req and future_date and not_registered%}
-<a href= "{% url 'volunteers:register' object.pk %}">  Register </a>
+<a class="btn btn-primary" style="background-color:#86c232;border:#86c232;"href= "{% url 'volunteers:register' object.pk %}">  Register </a>
 {% elif not people_req%}
-<p>The event registration is full.</p>
-{%elif not future_date%}
-<p>This event is already done</p>
-{%elif not not_registered and future_date%}
-<p>You are registered for this event</p>}
+<div class="alert alert-success" style="background-color:#D5D9D5;border:#818481; color:#818481" role="alert">
+  The event registration is full.
+</div>
 {%elif not not_registered and not future_date%}
-<p>You were a part of this event.</p>}
+<div class="alert alert-success" style="background-color:#D5D9D5;border:#818481; color:#818481" role="alert">
+  You were a volunteer for this event!
+</div>
+{%elif not future_date%}
+<div class="alert alert-success" style="background-color:#D5D9D5;border:#818481; color:#818481" role="alert">
+  This event is already done.
+</div>
+{%elif not not_registered and future_date%}
+<div class="alert alert-success" style="background-color:#D5D9D5;border:#818481; color:#818481" role="alert">
+  You are registered for this event!
+</div>
+<a class="btn btn-primary" style="background-color:#86c232;border:#86c232;"href= "{% url 'volunteers:deregister' object.pk %}"> Deregister </a>
 {%endif%}
-
-
-
-<a href="{% url 'volunteers:eventsearch' %}"> Back </a>
-
+<a class="btn btn-primary" style="background-color:#86c232;border:#86c232;" href="{% url 'volunteers:eventsearch' %}"> Back </a>
+ </div>
+</div>
 {% endblock %}

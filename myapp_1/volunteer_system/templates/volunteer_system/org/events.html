@@ -1,32 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-  
-  <h2 class="mb-3">My Events</h2>
-  <a href= "{% url 'orgs:create_event' %}">Create New Event</a>
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Date</th>
-          <th>Cause</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for event in events %}
-          <tr>
-            <td class="align-middle">{{ event.title }}</td>
-            <td class="align-middle">{{ event.date }}</td>
-            <td class="align-middle">{{ event.cause }}</td>
-            <td><a href = "{% url 'orgs:detail_event' event.pk %}"> More </a></td>
+  <div class="card" style="width: 70rem;margin:0 auto;">
+    <div class="card-body">
+      <h2 style="color:#86c232">My Events</h2>
+        <a class="btn btn-primary" style="background-color:#222629;border:#222629;margin-top: 10px" href= "{% url 'orgs:create_event' %}">Add Event</a>
+<p style="margin-top:20px;font-size: 0.8rem;">*Click on the event title to see more details/update event.</p>
+    <table class="table table-hover">
+        <thead>
+          <tr style='background-color:#222629;color:#f7f9fb;font-weight:normal'>
+            <th scope="col">TITLE</th>
+            <th scope="col">DATE</th>
+            <th scope="col">CITY</th>
+            <th scope="col">STATE</th>
+            <th scope="col">CAUSE</th>
           </tr>
-        {% empty %}
+        </thead>
+        <tbody>
+          {% for event in events %}
           <tr>
-            <td class="bg-light text-center font-italic" colspan="5">You haven't created any Events yet.
+            <td >
+               <style> 
+                   a:hover {text-decoration: none;} 
+               </style> 
+              <a href = "{% url 'orgs:detail_event' event.pk %}" style='color:#12A814;'>{{event.title}}</a></td>
+            <td >{{ event.date }}</td>
+            <td >{{ event.city }}</td>
+            <td >{{ event.state }}</td>
+            <td >{{ event.cause }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="5">Sorry, there are no events for your search.
             </td>
           </tr>
         {% endfor %}
-      </tbody>
-    </table>
+        </tbody>
+      </table> 
   </div>
 {% endblock %}

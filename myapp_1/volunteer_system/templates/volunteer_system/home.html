@@ -2,8 +2,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="description">
-  <h1>Welcome to the Volunteer System!</h1>
+  <h1 style="color:#86c232">Welcome to the Volunteer System!</h1>
   <p>This is a platform which allows NGOs and other organisations to interact with their volunteers. Both Organisations and Volunteers can register here. It allows Organisations to create a events and Volunteers can register for events according to their interests. </p>
-  <a href= "{% url 'signup' %}">Get Started</a>
+  <a href= "{% url 'signup' %}" class="btn btn-primary btn-lg" style="background-color:#222629;border:#222629">Get Started</a>
 </div>
 {% endblock %}

@@ -2,10 +2,17 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm">
-</form>
-<a href= "{% url 'orgs:detail_event' object.pk %}"> Cancel </a>
+<div class="card" style="width:45rem;height:10rem;margin:0 auto;">
+    <div class="card-body">
+      <h4 style="color:#86c232;margin-bottom: 30px">Are you sure you want to delete the event "{{ object }}"?</h4>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div style="margin: 0 auto">
+        <button type="submit" class="btn btn-success" style="background-color:#222629;border:#222629;margin-left: 0px">Delete</button>
+        <a class="btn btn-primary" style="background-color:#222629;border:#222629"href = "{% url 'orgs:detail_event' object.pk %}"%}">Cancel</a>
+       	</div>
+      </form>
+    </div>
+  </div>
 
 {% endblock %}

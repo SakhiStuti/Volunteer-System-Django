@@ -1,12 +1,17 @@
 
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-<h2>Login</h2>
-      <form method="post">
+<div class="card" style="width: 40rem;margin:0 auto;">
+    <div class="card-body">
+      <h2 style="color:#86c232">Login</h2>
+      <form method="post" novalidate>
         {% csrf_token %}
-        {{ form }}
-        <div>
-        <button>Login</button>
-    	</div>
+       
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary btn-lg" style="background-color:#222629;border:#222629">Login</button>
       </form>
+    
+   </div>
+</div>
 {% endblock %}

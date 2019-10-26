@@ -3,10 +3,12 @@ from django.views.generic.edit import CreateView
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth import login
+from django.http import HttpResponseRedirect
 
 from datetime import date
 from django.db.models import F
 from django.db.models import Count
+from django.urls import reverse, reverse_lazy
 
 from ..forms import VolunteerSignupForm
 from ..models import User, Event, Registration, Volunteer, Cause
@@ -106,6 +108,11 @@ class VolunteerSignUpView(CreateView):
         login(self.request, user)
         return redirect('volunteers:events')
 
+    def get_context_data(self, **kwargs):
+	    context = super().get_context_data(**kwargs)
+	    context['is_org'] = False
+	    return context
+
 class RegistrationCreateView(CreateView):
 	model = Registration
 	fields = []
@@ -123,3 +130,17 @@ class RegistrationCreateView(CreateView):
 	    context = super().get_context_data(**kwargs)
 	    context['pk'] = self.kwargs['pk']
 	    return context
+
+def delete_registration(request, pk=None):
+	volunteer = Volunteer.objects.get(user = request.user)
+	event = Event.objects.get(pk = pk)
+	registration = Registration.objects.get(volunteer = volunteer, event = event)
+	context = {'pk':pk}
+	if request.method == "POST":
+		registration.delete()
+		return redirect('volunteers:detail_event', pk = pk)
+	
+	return render(request,'volunteer_system/volunteer/deregister_events.html',context)
+	
+		
+		
