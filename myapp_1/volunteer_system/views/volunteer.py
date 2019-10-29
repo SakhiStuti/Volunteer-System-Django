@@ -4,6 +4,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth import login
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from datetime import date
 from django.db.models import F
@@ -12,7 +14,10 @@ from django.urls import reverse, reverse_lazy
 
 from ..forms import VolunteerSignupForm
 from ..models import User, Event, Registration, Volunteer, Cause
+from ..decorators import volunteer_required
 
+@login_required
+@volunteer_required
 def filter_view(request):
 	qs = filter(request)
 	context = {
@@ -75,6 +80,7 @@ def filter(request):
 
     return qs
 
+@method_decorator([login_required, volunteer_required], name='dispatch')
 class EventListView(ListView):
 	model = Event
 	ordering = ('title')
@@ -85,6 +91,7 @@ class EventListView(ListView):
 		queryset = Event.objects.all()
 		return queryset
 
+@method_decorator([login_required, volunteer_required], name='dispatch')
 class EventDetailView(DetailView):
 	model = Event
 	template_name = 'volunteer_system/volunteer/detail_events.html'
@@ -113,6 +120,7 @@ class VolunteerSignUpView(CreateView):
 	    context['is_org'] = False
 	    return context
 
+@method_decorator([login_required, volunteer_required], name='dispatch')
 class RegistrationCreateView(CreateView):
 	model = Registration
 	fields = []
@@ -131,6 +139,8 @@ class RegistrationCreateView(CreateView):
 	    context['pk'] = self.kwargs['pk']
 	    return context
 
+@login_required
+@volunteer_required
 def delete_registration(request, pk=None):
 	volunteer = Volunteer.objects.get(user = request.user)
 	event = Event.objects.get(pk = pk)

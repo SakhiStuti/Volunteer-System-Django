@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="card" style="width:40rem;height:40rem;margin:0 auto;">
+<div class="card" style="width:40rem;height:45rem;margin:0 auto;">
     <div class="card-body">
 <h1 style="color:#86c232">{{object.title}}</h1>
 <p style="color: #6b6e70;font-size:1rem;"><i>{{ object.description}}</i></p>
@@ -36,8 +36,14 @@
 	</tr>
 </table>
 
+
 {% if people_req and future_date and not_registered%}
 <a class="btn btn-primary" style="background-color:#86c232;border:#86c232;"href= "{% url 'volunteers:register' object.pk %}">  Register </a>
+{%elif not not_registered and future_date%}
+<div class="alert alert-success" style="background-color:#D5D9D5;border:#818481; color:#818481" role="alert">
+  You are registered for this event!
+</div>
+<a class="btn btn-primary" style="background-color:#86c232;border:#86c232;"href= "{% url 'volunteers:deregister' object.pk %}"> Deregister </a>
 {% elif not people_req%}
 <div class="alert alert-success" style="background-color:#D5D9D5;border:#818481; color:#818481" role="alert">
   The event registration is full.
@@ -50,11 +56,6 @@
 <div class="alert alert-success" style="background-color:#D5D9D5;border:#818481; color:#818481" role="alert">
   This event is already done.
 </div>
-{%elif not not_registered and future_date%}
-<div class="alert alert-success" style="background-color:#D5D9D5;border:#818481; color:#818481" role="alert">
-  You are registered for this event!
-</div>
-<a class="btn btn-primary" style="background-color:#86c232;border:#86c232;"href= "{% url 'volunteers:deregister' object.pk %}"> Deregister </a>
 {%endif%}
 <a class="btn btn-primary" style="background-color:#86c232;border:#86c232;" href="{% url 'volunteers:eventsearch' %}"> Back </a>
  </div>

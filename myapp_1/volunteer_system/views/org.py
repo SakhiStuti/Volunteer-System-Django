@@ -3,14 +3,15 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth import login
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from ..forms import OrgSignupForm, EventCreationForm
 from ..models import User, Event, Organisation, Registration
+from ..decorators import org_required
 
 
-def delete(request):
-	return render(request, 'volunteer_system/test.html')
-
+@method_decorator([login_required, org_required], name='dispatch')
 class EventUpdateView(UpdateView):
 	model = Event
 	form_class = EventCreationForm
@@ -19,13 +20,14 @@ class EventUpdateView(UpdateView):
 	def get_success_url(self, *args, **kwargs):
 		return reverse('orgs:detail_event', kwargs={'pk':self.kwargs['pk']})
 
+@method_decorator([login_required, org_required], name='dispatch')
 class EventDeleteView(DeleteView):
     model = Event
     template_name = 'volunteer_system/org/delete_events_confirm.html'
     success_url = reverse_lazy('orgs:events')
 
 
-
+@method_decorator([login_required, org_required], name='dispatch')
 class EventDetailView(DetailView):
 	model = Event
 	template_name = 'volunteer_system/org/detail_events.html'
@@ -36,6 +38,7 @@ class EventDetailView(DetailView):
 		context['num_registered'] = Registration.objects.filter(event=event).count()
 		return context
 
+@method_decorator([login_required, org_required], name='dispatch')
 class EventListView(ListView):
 	model = Event
 	ordering = ('title')
@@ -47,6 +50,7 @@ class EventListView(ListView):
 		queryset = Event.objects.filter(org = org)
 		return queryset
 
+@method_decorator([login_required, org_required], name='dispatch')
 class EventCreateView(CreateView):
 	model = Event
 	form_class = EventCreationForm
@@ -58,10 +62,6 @@ class EventCreateView(CreateView):
 		event.save()
 		#messages.success(self.request, 'The quiz was created with success! Go ahead and add some questions now.')
 		return redirect('orgs:events')
-
-
-
-
 
 class OrgSignUpView(CreateView):
     model = User
